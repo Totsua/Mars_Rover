@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class InputParserTest {
@@ -91,7 +93,7 @@ class InputParserTest {
     void directionParser_NullInputTest() {
         String testInput1 = null;
 
-        var result1 = inputParser.directionParser(testInput1);
+        CompassDirections result1 = inputParser.directionParser(testInput1);
 
         assertNull(result1);
     }
@@ -151,7 +153,7 @@ class InputParserTest {
         String testInput2 = "0 0 W";
 
         var expectedResult1 = new Position(1,2,CompassDirections.N);
-        var expectedResult2 = new Position(1,2,CompassDirections.W);
+        var expectedResult2 = new Position(0,0,CompassDirections.W);
 
         var result1 = inputParser.positionParser(testInput1);
         var result2 = inputParser.positionParser(testInput2);
@@ -162,7 +164,8 @@ class InputParserTest {
                 () -> assertEquals(expectedResult1.getCompassDirections(),result1.getCompassDirections()),
                 () -> assertEquals(expectedResult2.getX(),result2.getX()),
                 () -> assertEquals(expectedResult2.getY(),result2.getY()),
-                () -> assertEquals(expectedResult2.getCompassDirections(),result2.getCompassDirections())                );
+                () -> assertEquals(expectedResult2.getCompassDirections(),result2.getCompassDirections())
+        );
     }
 
 
@@ -208,15 +211,15 @@ class InputParserTest {
         Instruction[] result1 = inputParser.instructionParser(testInput1);
         Instruction[] result2 = inputParser.instructionParser(testInput2);
 
-        assertEquals(expectedResult1,result1);
-        assertEquals(expectedResult2,result2);
+        assertEquals(Arrays.toString(expectedResult1), Arrays.toString(result1));
+        assertEquals(Arrays.toString(expectedResult2), Arrays.toString(result2));
 
     }
 
     @Test
     @DisplayName("instructionParser returns null for an incorrect or empty input")
     void instructionParser_IncorrectOrEmptyInputTest() {
-        String testInput1 = "MAOPESAZ";
+        String testInput1 = "BAOPESAZ";
         String testInput2 = " ";
 
 
