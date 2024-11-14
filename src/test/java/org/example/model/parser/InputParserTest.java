@@ -118,6 +118,25 @@ class InputParserTest {
     }
 
     @Test
+    @DisplayName("plateauSizeParser returns PlateauSize with positive inputs given negative")
+    void plateauSizeParser_NegativeInputTest() {
+        String testInput1 = "-8 -10";
+
+        PlateauSize expectedResult = new PlateauSize(8,10);
+
+        PlateauSize result = inputParser.plateauSizeParser(testInput1);
+
+        assertAll(
+                () -> assertEquals(expectedResult.getX(),result.getX()),
+                () -> assertEquals(expectedResult.getY(),result.getY()),
+                () -> assertEquals(expectedResult.getX() + 1,result.getPlateauGrid().length),
+                () -> assertEquals(expectedResult.getY() + 1,result.getPlateauGrid()[0].length)
+
+        );
+
+    }
+
+    @Test
     @DisplayName("plateauSizeParser returns null for given incorrect/empty input")
     void plateauSizeParser_IncorrectOrEmptyInputTest(){
         String testInput1 = "BOB";
