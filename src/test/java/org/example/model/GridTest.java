@@ -31,7 +31,7 @@ class GridTest {
         int[] testUpperRightCoordinate2 = null;
 
         int[][] result = new Grid(testUpperRightCoordinate).getSize();
-        int[][] result2 = new Grid(testUpperRightCoordinate).getSize();
+        int[][] result2 = new Grid(testUpperRightCoordinate2).getSize();
 
         assertNull(result);
         assertNull(result2);
