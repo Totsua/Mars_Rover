@@ -13,4 +13,16 @@ public class Position {
 
         this.facing = facing;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public CompassDirections getCompassDirections() {
+        return facing;
+    }
 }
