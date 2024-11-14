@@ -2,12 +2,12 @@ package org.example.model;
 
 import java.util.Arrays;
 
-public class Grid {
+public class Plateau {
     private int[] upperRightGridCoordinate;
     private int[][] gridSize;
 
 
-    public Grid(int[] upperRightGridCoordinate) {
+    public Plateau(int[] upperRightGridCoordinate) {
 
         this.upperRightGridCoordinate = upperRightGridCoordinate;
 
