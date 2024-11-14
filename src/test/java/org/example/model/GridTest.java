@@ -25,19 +25,22 @@ class GridTest {
     }
 
     @Test
-    @DisplayName("Grid correctly returns null if given a (0,0) or null coordinate")
+    @DisplayName("gridSize correctly returns null if given a (0,0) or null coordinate")
     void gridSizeTest_WithNoSize(){
         int[] testUpperRightCoordinate = {0,0};
+        int[] testUpperRightCoordinate2 = null;
 
         int[][] result = new Grid(testUpperRightCoordinate).getSize();
+        int[][] result2 = new Grid(testUpperRightCoordinate).getSize();
 
         assertNull(result);
+        assertNull(result2);
 
     }
 
     @Test
-    @DisplayName("Grid turns negative inputs to positive inputs")
-    void gridSizeTest_WithNegativeInputs(){
+    @DisplayName("Grid turns negative coordinate inputs to positive inputs")
+    void gridTest_WithNegativeInputs(){
         int[] testUpperRightCoordinate = {-10,-5};
 
         int[] expectedResult = {11,6};
