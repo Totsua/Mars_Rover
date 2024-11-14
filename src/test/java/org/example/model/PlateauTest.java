@@ -10,10 +10,11 @@ class PlateauTest {
     @DisplayName("Plateau calculates it's maximum size correctly")
     void plateauSizeTest_Happy(){
         int[] testUpperRightCoordinate = {2, 5};
+        PlateauSize testPlateauSize = new PlateauSize(testUpperRightCoordinate[0],testUpperRightCoordinate[1]);
 
         int[] expectedResult = {3,6};
 
-        int[][] result = new Plateau(testUpperRightCoordinate).getSize();
+        int[][] result = new Plateau(testPlateauSize).getSize();
         int[] resultLengthWidth = {result.length,result[0].length};
 
         assertAll(
@@ -23,16 +24,15 @@ class PlateauTest {
     }
 
     @Test
-    @DisplayName("plateauSize correctly returns null if given a (0,0) or null coordinate")
+    @DisplayName("plateauSize returns null if given a (0,0) coordinate")
     void plateauSizeTest_WithNoSize(){
         int[] testUpperRightCoordinate = {0,0};
-        int[] testUpperRightCoordinate2 = null;
 
-        int[][] result = new Plateau(testUpperRightCoordinate).getSize();
-        int[][] result2 = new Plateau(testUpperRightCoordinate2).getSize();
+        PlateauSize testPlateauSize1 = new PlateauSize(testUpperRightCoordinate[0],testUpperRightCoordinate[1]);
+
+        int[][] result = new Plateau(testPlateauSize1).getSize();
 
         assertNull(result);
-        assertNull(result2);
 
     }
 
@@ -40,10 +40,11 @@ class PlateauTest {
     @DisplayName("Plateau turns negative coordinate inputs to positive inputs")
     void plateauTest_WithNegativeInputs(){
         int[] testUpperRightCoordinate = {-10,-5};
+        PlateauSize testPlateauSize = new PlateauSize(testUpperRightCoordinate[0],testUpperRightCoordinate[1]);
 
         int[] expectedResult = {11,6};
 
-        int[][] result = new Plateau(testUpperRightCoordinate).getSize();
+        int[][] result = new Plateau(testPlateauSize).getSize();
 
         int[] resultLengthWidth = {result.length,result[0].length};
 
