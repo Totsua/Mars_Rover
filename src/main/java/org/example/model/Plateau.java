@@ -3,27 +3,17 @@ package org.example.model;
 import java.util.Arrays;
 
 public class Plateau {
-    private int[] upperRightGridCoordinate;
-    private int[][] gridSize;
+    private PlateauSize plateauSize;
 
 
-    public Plateau(int[] upperRightGridCoordinate) {
+    public Plateau(PlateauSize plateauSize) {
 
-        this.upperRightGridCoordinate = upperRightGridCoordinate;
-
-        if(upperRightGridCoordinate == null|| Arrays.equals(upperRightGridCoordinate, new int[]{0, 0})){
-            gridSize = null;
-        }
-        else {
-            int x = upperRightGridCoordinate[0] < 0 ? -upperRightGridCoordinate[0] : upperRightGridCoordinate[0];
-            int y = upperRightGridCoordinate[1] < 0 ? -upperRightGridCoordinate[1] : upperRightGridCoordinate[1];
-            gridSize = new int[x + 1][y + 1];
-        }
+        this.plateauSize = plateauSize;
 
     }
 
 
     public int[][] getSize(){
-        return gridSize;
+        return plateauSize.getPlateauGrid();
     }
 }
