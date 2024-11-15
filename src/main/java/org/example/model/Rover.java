@@ -15,6 +15,10 @@ public class Rover {
         return position;
     }
 
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
     public void rotate(Instruction instruction) {
         if (instruction != null && instruction != Instruction.M) {
             if (instruction == Instruction.L) {
