@@ -7,99 +7,114 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RoverTest {
 
+
+
     @Test
-    @DisplayName("Rover only takes directions 'N','E','S' or 'W'")
-    void roverDirection_CorrectInputTest(){
-        int[] testPosition = {0,0};
+    @DisplayName("Rover correctly changes Position direction depending on instruction given")
+    void roverRotateTest(){
+        Instruction testInstruction1 = Instruction.L;
+        Instruction testInstruction2 = Instruction.R;
 
-        char testDirection1 = 'N';
-        char testDirection2 = 'E';
-        char testDirection3 = 'S';
-        char testDirection4 = 'W';
+        Position testPosition1 = new Position(5,3,CompassDirections.N);
+        Position testPosition2 = new Position(5,3,CompassDirections.E);
 
-        Rover testRover1 = new Rover(testPosition,testDirection1);
-        Rover testRover2 = new Rover(testPosition,testDirection2);
-        Rover testRover3 = new Rover(testPosition,testDirection3);
-        Rover testRover4 = new Rover(testPosition,testDirection4);
 
-        char expectedDirection1 = 'N';
-        char expectedDirection2 = 'E';
-        char expectedDirection3 = 'S';
-        char expectedDirection4 = 'W';
+        Rover testRover1 = new Rover(testPosition1);
+        Rover testRover2 = new Rover(testPosition2);
 
-        char resultDirection1 = testRover1.getDirection();
-        char resultDirection2 = testRover2.getDirection();
-        char resultDirection3 = testRover3.getDirection();
-        char resultDirection4 = testRover4.getDirection();
+        CompassDirections expectedResult1 = CompassDirections.W;
+        CompassDirections expectedResult2 = CompassDirections.S;
+
+        testRover1.rotate(testInstruction1);
+        testRover2.rotate(testInstruction2);
+
+        CompassDirections result1 = testRover1.getPosition().getCompassDirections();
+        CompassDirections result2 = testRover2.getPosition().getCompassDirections();
+
 
 
         assertAll(
-                () -> assertEquals(expectedDirection1,resultDirection1),
-                () -> assertEquals(expectedDirection2,resultDirection2),
-                () -> assertEquals(expectedDirection3,resultDirection3),
-                () -> assertEquals(expectedDirection4,resultDirection4)
+                () -> assertEquals(expectedResult1,result1),
+                () -> assertEquals(expectedResult2,result2)
         );
+
     }
 
     @Test
-    @DisplayName("Rover direction is null if incorrect or empty direction input is given")
-    void roverDirection_WrongInputTest(){
-        int[] testPosition = {0,0};
+    @DisplayName("Rover wont change Position if given 'M' Instruction")
+    void roverRotate_MoveInputTest(){
+        Instruction testInstruction1 = Instruction.M;
 
-        char testDirection1 = 'V';
-        char testDirection2 = ' ';
+        Position testPosition1 = new Position(5,3,CompassDirections.N);
+
+        Rover testRover1 = new Rover(testPosition1);
+
+        CompassDirections expectedResult1 = CompassDirections.N;
+
+        testRover1.rotate(testInstruction1);
+
+        CompassDirections result1 = testRover1.getPosition().getCompassDirections();
+
+        assertEquals(expectedResult1,result1);
+
+    }
+
+    @Test
+    @DisplayName("Rover Position coordinates change correctly for a given direction")
+    void roverMoveTest(){
 
 
-        Rover testRover1 = new Rover(testPosition,testDirection1);
-        Rover testRover2 = new Rover(testPosition,testDirection2);
+        Position testPosition1 = new Position(5,3,CompassDirections.N);
+        Position testPosition2 = new Position(3,4,CompassDirections.E);
 
-        Character resultDirection1 = testRover1.getDirection();
-        Character resultDirection2 = testRover2.getDirection();
+        Rover testRover1 = new Rover(testPosition1);
+        Rover testRover2 = new Rover(testPosition2);
+
+        int[] expectedResult1 = {5,4};
+        int[] expectedResult2 = {4,4};
+
+        testRover1.move();
+        testRover2.move();
+
+
+        int[] result1 = {testRover1.getPosition().getX(), testPosition1.getY()};
+        int[] result2 = {testRover2.getPosition().getX(), testPosition2.getY()};
+
 
         assertAll(
-                () -> assertNull(resultDirection1),
-                () -> assertNull(resultDirection2)
+                () -> assertEquals(expectedResult1[0],result1[0]),
+                () -> assertEquals(expectedResult1[1],result1[1]),
+                () -> assertEquals(expectedResult2[0],result2[0]),
+                () -> assertEquals(expectedResult2[1],result2[1])
         );
     }
-
-
     @Test
-    @DisplayName("Rover direction is null if direction input is null")
-    void roverDirection_NullInputTest(){
-        int[] testPosition = {0,0};
+    @DisplayName("Rover Position won't go into negative coordinates if moving past 0 (x) or 0 (y) Position")
+    void roverMove_NegativeTest(){
+        Position testPosition1 = new Position(3,0,CompassDirections.S);
+        Position testPosition2 = new Position(0,5,CompassDirections.W);
 
-        Character testDirection1 = null;
+        Rover testRover1 = new Rover(testPosition1);
+        Rover testRover2 = new Rover(testPosition2);
 
-        Rover testRover1 = new Rover(testPosition,testDirection1);
+        int[] expectedResult1 = {3,0};
+        int[] expectedResult2 = {0,5};
 
-        Character resultDirection1 = testRover1.getDirection();
+        testRover1.move();
+        testRover2.move();
 
-        assertNull(resultDirection1);
+        int[] result1 = {testRover1.getPosition().getX(), testPosition1.getY()};
+        int[] result2 = {testRover2.getPosition().getX(), testPosition2.getY()};
+
+        assertAll(
+                () -> assertEquals(expectedResult1[0],result1[0]),
+                () -> assertEquals(expectedResult1[1],result1[1]),
+                () -> assertEquals(expectedResult2[0],result2[0]),
+                () -> assertEquals(expectedResult2[1],result2[1])
+        );
+
     }
-
-    @Test
-    @DisplayName("Rover position returns null if given a negative or null coordinates")
-    void roverPosition_NegativeInput(){
-        int[] testPosition1 = {-8,5};
-        int[] testPosition2 = {10,-14};
-        int[] testPosition3 = null;
-
-        char testDirection = 'N';
-
-        Rover testRover1 = new Rover(testPosition1,testDirection);
-        Rover testRover2 = new Rover(testPosition2,testDirection);
-        Rover testRover3 = new Rover(testPosition3,testDirection);
-
-        int[] resultPosition1 = testRover1.getPosition();
-        int[] resultPosition2 = testRover2.getPosition();
-        int[] resultPosition3= testRover3.getPosition();
-
-
-               assertNull(resultPosition1);
-               assertNull(resultPosition2);
-               assertNull(resultPosition3);
-    }
-
 
 
 }
+
