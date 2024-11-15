@@ -25,4 +25,16 @@ public class Position {
     public CompassDirections getCompassDirections() {
         return facing;
     }
+
+     void setFacing(CompassDirections facing) {
+        this.facing = facing;
+    }
+
+     void setX(int x) {
+        this.x = x;
+    }
+
+     void setY(int y) {
+        this.y = y;
+    }
 }
