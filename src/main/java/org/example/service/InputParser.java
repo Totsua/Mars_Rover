@@ -1,4 +1,4 @@
-package org.example.service.parser;
+package org.example.service;
 
 import org.example.model.CompassDirections;
 import org.example.model.Instruction;
@@ -23,6 +23,7 @@ public class InputParser {
                 return null;
             default:
                 // maybe throw error?*/
+             //   throw new RuntimeException(input + " is not a valid input");
         }
 
         return null;
@@ -69,7 +70,7 @@ public class InputParser {
 
     }
 
-    Instruction[] instructionParser(String input) {
+     Instruction[] instructionParser(String input) {
 
         if (input == null || input.isBlank()) {
             return null;
