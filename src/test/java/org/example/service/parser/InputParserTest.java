@@ -1,6 +1,7 @@
-package org.example.model.parser;
+package org.example.service.parser;
 
 import org.example.model.*;
+import org.example.service.parser.InputParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

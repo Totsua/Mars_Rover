@@ -1,4 +1,4 @@
-package org.example.model.parser;
+package org.example.service.parser;
 
 import org.example.model.CompassDirections;
 import org.example.model.Instruction;
