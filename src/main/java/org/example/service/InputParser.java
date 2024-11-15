@@ -10,28 +10,23 @@ import java.util.ArrayList;
 public class InputParser {
 
     CompassDirections directionParser(String input) {
-        switch (input) {
-            case ("N"), ("n"):
-                return CompassDirections.N;
-            case ("E"), ("e"):
-                return CompassDirections.E;
-            case ("W"), ("w"):
-                return CompassDirections.W;
-            case ("S"), ("s"):
-                return CompassDirections.S;
-            case null:
-                return null;
-            default:
-                // maybe throw error?*/
-             //   throw new RuntimeException(input + " is not a valid input");
-        }
+        return switch (input) {
+            case ("N"), ("n") -> CompassDirections.N;
+            case ("E"), ("e") -> CompassDirections.E;
+            case ("W"), ("w") -> CompassDirections.W;
+            case ("S"), ("s") -> CompassDirections.S;
+            case null -> throw new RuntimeException("null cannot be an input. Please contact the developer.");
+            default -> throw new RuntimeException("'" + input + "'" + " is not a valid input");
+        };
 
-        return null;
     }
 
     PlateauSize plateauSizeParser(String input) {
-        if (input == null || input.trim().split(" ").length != 2) {
-            return null;
+        if(input == null){
+            throw new RuntimeException("null cannot be an input. Please contact the developer.");
+        }
+        if (input.trim().split(" ").length != 2) {
+            throw new RuntimeException("'" + input + "'" + " is not a valid input");
         } else {
             try {
                 String[] splitString = input.split(" ");
@@ -45,14 +40,14 @@ public class InputParser {
 
                 return new PlateauSize(x, y);
             } catch (NumberFormatException e) {
-                return null;
+                throw new RuntimeException("'" + input + "'" + " is not a valid input");
             }
         }
     }
 
     Position positionParser(String input) {
-        if(input == null || input.isBlank()){
-            return null;
+        if(input == null){
+           throw new RuntimeException("null cannot be an input. Please contact the developer.");
         }
 
         String[] inputSplit = input.split(" ");
@@ -61,19 +56,19 @@ public class InputParser {
             int y = Integer.parseInt(inputSplit[1]);
             CompassDirections direction = directionParser(inputSplit[2]);
             if(direction == null){
-                return null;
+                throw new RuntimeException();
             }
             return new Position(x,y,direction);
-        }catch (NumberFormatException e ){
-            return null;
+        }catch (  RuntimeException e ){
+            throw new RuntimeException("'" + input + "'" + " is not a valid input");
         }
 
     }
 
      Instruction[] instructionParser(String input) {
 
-        if (input == null || input.isBlank()) {
-            return null;
+        if (input == null) {
+            throw new RuntimeException("null cannot be an input. Please contact the developer.");
         }
         ArrayList<Instruction> instructions = new ArrayList<>();
 
@@ -89,7 +84,7 @@ public class InputParser {
                     instructions.add(Instruction.M);
                     break;
                 default:
-                    // maybe throw error
+                   throw new RuntimeException("'" + input + "'" + " is not a valid input.");
             }
         }
 
@@ -99,7 +94,7 @@ public class InputParser {
         }
 
 
-        return instructionArray.length > 0 ? instructionArray : null;
+        return instructionArray;
     }
 }
 
